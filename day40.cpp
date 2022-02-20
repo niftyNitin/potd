@@ -1,5 +1,6 @@
 // Problem link: https://leetcode.com/problems/keep-multiplying-found-values-by-two/
 
+// using binary search o(n^2logn)
 class Solution {
 public:
     
@@ -23,5 +24,39 @@ public:
             original *= 2;
             start = x+1;
         }
+    }
+};
+
+// o(nlogn) solution
+class Solution {
+public: 
+    int findFinalValue(vector<int>& nums, int original) {
+        sort(nums.begin(), nums.end());
+        for(int i = 0; i < nums.size(); i++){
+            if(nums[i] == original){
+                original *= 2;
+                i -= 1;
+            }
+        }
+        return original;
+    }
+};
+
+
+// o(n) solution using hashset
+class Solution {
+public: 
+    int findFinalValue(vector<int>& nums, int original) {
+        unordered_set<int> st;
+        for(auto i : nums)
+            st.insert(i);
+        
+        while(true){
+            if(st.count(original))
+                original *= 2;
+            else
+                break;
+        }
+        return original;
     }
 };
